@@ -1,11 +1,12 @@
 {
   "name": "gib-tweaks",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "npm run build && node scripts/check.mjs"
+    "test": "node --test scripts/status-bar.test.mjs",
+    "check": "npm run build && npm test && node scripts/check.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.12"

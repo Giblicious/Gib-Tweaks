@@ -36,9 +36,22 @@ for (const requiredText of [
   'gib-tweaks-typography',
   'Default workspace',
   'Hide sidebar panels on startup',
+  'Status bar location',
+  'Right sidebar footer',
+  'gib-tweaks-status-bar-host',
+  'restoreStatusBar',
   'module.exports',
 ]) {
   if (!builtMain.includes(requiredText)) throw new Error(`Release build is missing expected plugin behavior: ${requiredText}`);
+}
+
+const styles = read('styles.css');
+for (const requiredStyle of [
+  '.gib-tweaks-status-bar-host',
+  '.gib-tweaks-status-bar-host .status-bar',
+  'position: static !important',
+]) {
+  if (!styles.includes(requiredStyle)) throw new Error(`Release styles are missing right-sidebar behavior: ${requiredStyle}`);
 }
 
 for (const relativePath of ['src/main.js', 'main.js', 'styles.css', 'README.md']) {

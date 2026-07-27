@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Adds a live status-bar location setting with main-workspace and right-sidebar footer options.
+- Styles the right-sidebar footer to match Obsidian's left vault and settings footer.
+- Restores the status bar to its original DOM position when switching back or unloading the plugin.
+
 ## 0.3.0
 
 - Updates the companion theme name and repository references from Claudish to Gib Theme.

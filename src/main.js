@@ -45,6 +45,7 @@ const DEFAULT_SETTINGS = {
   // ── Workspace ──
   defaultWorkspace: '',
   hideSidebarPanels: true,
+  statusBarLocation: 'main',
 };
 /* ─── Weight dropdown options ─────────────────────────────────────── */
 
@@ -121,45 +122,49 @@ function buildCSS(s) {
 /* ─── Status Bar Tweak ────────────────────────────────────────────── */
 
 class StatusBarTweak {
-  constructor() {
+  constructor(location = 'main') {
+    this.location = location;
     this.observer = null;
     this.resizeObserver = null;
     this.rafId = null;
+    this.host = null;
   }
 
   enable() {
     this.statusBar = document.querySelector('.status-bar');
-    this.modRoot = document.querySelector('.workspace-split.mod-root');
-    this.leftSplit = document.querySelector('.workspace-split.mod-left-split');
-    this.rightSplit = document.querySelector('.workspace-split.mod-right-split');
     this.workspace = document.querySelector('.workspace');
 
-    if (!this.statusBar || !this.modRoot) return;
+    if (!this.statusBar || !this.workspace) return;
+
+    this.originalParent = this.statusBar.parentNode;
+    this.originalNextSibling = this.statusBar.nextSibling;
 
     this.update();
 
     this.observer = new MutationObserver(() => this.scheduleUpdate());
-    const observeOpts = { attributes: true, attributeFilter: ['style', 'class'] };
-    if (this.leftSplit) this.observer.observe(this.leftSplit, observeOpts);
-    if (this.rightSplit) this.observer.observe(this.rightSplit, observeOpts);
-    if (this.workspace) this.observer.observe(this.workspace, { childList: true, subtree: false });
+    this.observer.observe(this.workspace, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+      childList: true,
+      subtree: true,
+    });
 
     this.resizeObserver = new ResizeObserver(() => this.scheduleUpdate());
-    this.resizeObserver.observe(this.modRoot);
+    const modRoot = document.querySelector('.workspace-split.mod-root');
+    if (modRoot) this.resizeObserver.observe(modRoot);
 
     this.boundUpdate = () => this.scheduleUpdate();
     window.addEventListener('resize', this.boundUpdate);
   }
 
   disable() {
+    this.restoreStatusBar();
     if (this.statusBar) {
       this.statusBar.style.removeProperty('left');
       this.statusBar.style.removeProperty('right');
       this.statusBar.style.removeProperty('width');
     }
-    if (this.modRoot) {
-      this.modRoot.style.removeProperty('padding-bottom');
-    }
+    this.clearMainLayout();
     this.observer?.disconnect();
     this.resizeObserver?.disconnect();
     if (this.boundUpdate) window.removeEventListener('resize', this.boundUpdate);
@@ -168,6 +173,11 @@ class StatusBarTweak {
     this.resizeObserver = null;
     this.boundUpdate = null;
     this.rafId = null;
+  }
+
+  setLocation(location) {
+    this.location = location === 'right' ? 'right' : 'main';
+    this.update();
   }
 
   scheduleUpdate() {
@@ -179,14 +189,76 @@ class StatusBarTweak {
   }
 
   update() {
-    if (!this.modRoot || !this.statusBar) return;
-    const rect = this.modRoot.getBoundingClientRect();
+    if (!this.statusBar) return;
+
+    if (this.location === 'right' && this.placeInRightSidebar()) {
+      this.clearMainLayout();
+      return;
+    }
+
+    this.restoreStatusBar();
+    this.placeBelowMainWorkspace();
+  }
+
+  placeInRightSidebar() {
+    const rightSplit = document.querySelector('.workspace-split.mod-right-split');
+    if (!rightSplit) return false;
+
+    if (!this.host || this.host.parentNode !== rightSplit) {
+      this.host?.remove();
+      this.host = document.createElement('div');
+      this.host.className = 'workspace-sidedock-vault-profile gib-tweaks-status-bar-host';
+      rightSplit.appendChild(this.host);
+    }
+
+    if (this.statusBar.parentNode !== this.host) this.host.appendChild(this.statusBar);
+    this.statusBar.classList.add('gib-tweaks-status-bar-in-sidebar');
+    this.statusBar.style.removeProperty('left');
+    this.statusBar.style.removeProperty('right');
+    this.statusBar.style.removeProperty('width');
+    return true;
+  }
+
+  restoreStatusBar() {
+    if (!this.statusBar) return;
+
+    if (this.statusBar.parentNode === this.host) {
+      const targetParent = this.originalParent?.isConnected
+        ? this.originalParent
+        : document.querySelector('.app-container');
+      const reference = this.originalNextSibling?.parentNode === targetParent
+        ? this.originalNextSibling
+        : null;
+      if (targetParent) {
+        targetParent.insertBefore(this.statusBar, reference);
+        this.originalParent = targetParent;
+      }
+    }
+
+    this.statusBar.classList.remove('gib-tweaks-status-bar-in-sidebar');
+    if (this.statusBar.parentNode !== this.host) {
+      this.host?.remove();
+      this.host = null;
+    }
+  }
+
+  placeBelowMainWorkspace() {
+    const modRoot = document.querySelector('.workspace-split.mod-root');
+    if (!modRoot) return;
+
+    const rect = modRoot.getBoundingClientRect();
     this.statusBar.style.left = rect.left + 'px';
     this.statusBar.style.width = rect.width + 'px';
     this.statusBar.style.right = 'auto';
 
     const barHeight = this.statusBar.getBoundingClientRect().height;
-    this.modRoot.style.paddingBottom = barHeight + 'px';
+    modRoot.style.paddingBottom = barHeight + 'px';
+    this.mainRoot = modRoot;
+  }
+
+  clearMainLayout() {
+    this.mainRoot?.style.removeProperty('padding-bottom');
+    this.mainRoot = null;
   }
 }
 
@@ -388,6 +460,19 @@ class TypographySettingTab extends PluginSettingTab {
             await p.saveSettings();
           });
         });
+
+      new Setting(items)
+        .setName('Status bar location')
+        .setDesc('Keep the status bar below the main workspace or place it in a footer at the bottom of the right sidebar.')
+        .addDropdown(drop => {
+          drop.addOption('main', 'Main workspace footer');
+          drop.addOption('right', 'Right sidebar footer');
+          drop.setValue(p.settings.statusBarLocation);
+          drop.onChange(async (value) => {
+            p.settings.statusBarLocation = value;
+            await p.saveSettings();
+          });
+        });
     }
 
     // ════════════════════════════════════════════════════════════════
@@ -440,7 +525,7 @@ module.exports = class GibTweaksPlugin extends Plugin {
 
       // Short delay to let workspace DOM settle before capturing references
       setTimeout(() => {
-        this.statusBarTweak = new StatusBarTweak();
+        this.statusBarTweak = new StatusBarTweak(this.settings.statusBarLocation);
         this.statusBarTweak.enable();
       }, 100);
     });
@@ -458,6 +543,7 @@ module.exports = class GibTweaksPlugin extends Plugin {
   async saveSettings() {
     await this.saveData(this.settings);
     this.applyTypography();
+    this.statusBarTweak?.setLocation(this.settings.statusBarLocation);
   }
 
   applyTypography() {
