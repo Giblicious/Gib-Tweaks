@@ -1,10 +1,10 @@
-# Claudish Tweaks agent policy
+# Gib Tweaks agent policy
 
 These instructions apply to every automated or AI-assisted change in this repository.
 
 ## Obsidian plugin deployment
 
-- Claudish Tweaks installations managed by BRAT must be installed and updated only through BRAT from the public GitHub release.
+- Gib Tweaks installations managed by BRAT must be installed and updated only through BRAT from the public GitHub release.
 - Never copy, replace, patch, or delete `main.js`, `manifest.json`, `styles.css`, `versions.json`, or any other plugin artifact inside a user's Obsidian vault.
 - Never treat a successful local build as permission to deploy its output into a real vault.
 - Publishing a plugin version ends after the tested commit, tag, GitHub release, and release assets are available. Report that BRAT can now update; do not perform BRAT's client-side installation step on the user's behalf.

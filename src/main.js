@@ -407,14 +407,14 @@ class TypographySettingTab extends PluginSettingTab {
 
 /* ─── Plugin ──────────────────────────────────────────────────────── */
 
-module.exports = class ClaudishTweaksPlugin extends Plugin {
+module.exports = class GibTweaksPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new TypographySettingTab(this.app, this));
 
     // Inject typography overrides
     this.styleEl = document.createElement('style');
-    this.styleEl.id = 'claudish-tweaks-typography';
+    this.styleEl.id = 'gib-tweaks-typography';
     document.head.appendChild(this.styleEl);
     this.applyTypography();
 

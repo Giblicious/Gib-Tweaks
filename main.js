@@ -386,12 +386,12 @@ var TypographySettingTab = class extends PluginSettingTab {
     }
   }
 };
-module.exports = class ClaudishTweaksPlugin extends Plugin {
+module.exports = class GibTweaksPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new TypographySettingTab(this.app, this));
     this.styleEl = document.createElement("style");
-    this.styleEl.id = "claudish-tweaks-typography";
+    this.styleEl.id = "gib-tweaks-typography";
     document.head.appendChild(this.styleEl);
     this.applyTypography();
     this.app.workspace.onLayoutReady(() => {

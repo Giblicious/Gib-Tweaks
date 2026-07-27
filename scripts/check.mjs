@@ -10,12 +10,12 @@ const packageJson = JSON.parse(read('package.json'));
 const manifest = JSON.parse(read('manifest.json'));
 const versions = JSON.parse(read('versions.json'));
 
-if (manifest.id !== 'claudish-tweaks') throw new Error('manifest id must be claudish-tweaks');
-if (manifest.name !== 'Claudish Tweaks') throw new Error('manifest name must be Claudish Tweaks');
+if (manifest.id !== 'gib-tweaks') throw new Error('manifest id must be gib-tweaks');
+if (manifest.name !== 'Gib Tweaks') throw new Error('manifest name must be Gib Tweaks');
 if (!/^0\.\d+\.\d+$/.test(manifest.version)) throw new Error('public beta versions must remain in 0.x.x');
 if (packageJson.version !== manifest.version) throw new Error('package and manifest versions must match');
 if (versions[manifest.version] !== manifest.minAppVersion) throw new Error('versions.json must map the current version to minAppVersion');
-if (manifest.isDesktopOnly !== true) throw new Error('Claudish Tweaks uses desktop workspace APIs and must remain desktop-only');
+if (manifest.isDesktopOnly !== true) throw new Error('Gib Tweaks uses desktop workspace APIs and must remain desktop-only');
 
 for (const required of [
   'main.js',
@@ -33,7 +33,7 @@ for (const required of [
 
 const builtMain = read('main.js');
 for (const requiredText of [
-  'claudish-tweaks-typography',
+  'gib-tweaks-typography',
   'Default workspace',
   'Hide sidebar panels on startup',
   'module.exports',
@@ -53,4 +53,4 @@ if (fs.existsSync(path.join(root, 'data.json'))) throw new Error('data.json is u
 const syntax = spawnSync(process.execPath, ['--check', path.join(root, 'main.js')], { encoding: 'utf8' });
 if (syntax.status !== 0) throw new Error(syntax.stderr || syntax.stdout || 'Built main.js failed syntax validation');
 
-console.log(`Claudish Tweaks ${manifest.version} passed build, syntax, manifest, and public-content checks.`);
+console.log(`Gib Tweaks ${manifest.version} passed build, syntax, manifest, and public-content checks.`);

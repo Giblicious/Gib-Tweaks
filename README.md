@@ -1,6 +1,6 @@
-# Claudish Tweaks
+# Gib Tweaks
 
-Claudish Tweaks is a desktop companion plugin for the Claudish Obsidian theme. It provides typography overrides that CSS settings cannot conveniently express and a small set of workspace behaviors.
+Gib Tweaks is a desktop companion plugin for the Claudish Obsidian theme. It provides typography overrides that CSS settings cannot conveniently express and a small set of workspace behaviors.
 
 ## Features
 
@@ -16,10 +16,10 @@ Empty typography fields inherit from the active theme or Obsidian defaults. The 
 
 1. Install and enable **BRAT** in Obsidian.
 2. Open BRAT settings and choose **Add Beta Plugin**.
-3. Enter `Giblicious/claudish-tweaks`.
-4. Enable **Claudish Tweaks** under Community plugins.
+3. Enter `Giblicious/Gib-Tweaks`.
+4. Enable **Gib Tweaks** under Community plugins.
 
-Claudish Tweaks is desktop-only because its workspace and status-bar behavior depends on desktop layout APIs.
+Gib Tweaks is desktop-only because its workspace and status-bar behavior depends on desktop layout APIs.
 
 ## Development
 

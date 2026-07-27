@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Renames the plugin and public project from Claudish Tweaks to Gib Tweaks.
+- Changes the plugin ID to `gib-tweaks` and the BRAT repository path to `Giblicious/Gib-Tweaks`.
+
 ## 0.1.0
 
 - Adds theme-aware controls for font families, sizes, weights, line heights, heading color, bold color, and interface text.
