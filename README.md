@@ -1,6 +1,6 @@
 # Gib Tweaks
 
-Gib Tweaks is a desktop companion plugin for the Claudish Obsidian theme. It provides typography overrides that CSS settings cannot conveniently express and a small set of workspace behaviors.
+Gib Tweaks is a desktop companion plugin for Gib Theme. It provides typography overrides that CSS settings cannot conveniently express and a small set of workspace behaviors.
 
 ## Features
 
@@ -10,7 +10,7 @@ Gib Tweaks is a desktop companion plugin for the Claudish Obsidian theme. It pro
 - Optionally close sidebar panels that Obsidian restores during startup.
 - Keep the status bar aligned with the central workspace when sidebars change size.
 
-Empty typography fields inherit from the active theme or Obsidian defaults. The plugin is designed for Claudish but does not install the theme itself.
+Empty typography fields inherit from the active theme or Obsidian defaults. The plugin is designed for [Gib Theme](https://github.com/Giblicious/Gib-Theme) but does not install the theme itself.
 
 ## Install with BRAT
 

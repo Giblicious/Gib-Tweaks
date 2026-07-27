@@ -195,7 +195,7 @@ var TypographySettingTab = class extends PluginSettingTab {
     const { containerEl } = this;
     const p = this.plugin;
     containerEl.empty();
-    new Setting(containerEl).setDesc("Empty fields inherit from the Claudish theme or Obsidian defaults.").addButton(
+    new Setting(containerEl).setDesc("Empty fields inherit from Gib Theme or Obsidian defaults.").addButton(
       (btn) => btn.setButtonText("Reset all to defaults").setWarning().onClick(async () => {
         p.settings = Object.assign({}, DEFAULT_SETTINGS);
         await p.saveSettings();

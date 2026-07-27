@@ -248,7 +248,7 @@ class TypographySettingTab extends PluginSettingTab {
 
     // ── Reset ──
     new Setting(containerEl)
-      .setDesc('Empty fields inherit from the Claudish theme or Obsidian defaults.')
+      .setDesc('Empty fields inherit from Gib Theme or Obsidian defaults.')
       .addButton(btn => btn
         .setButtonText('Reset all to defaults')
         .setWarning()

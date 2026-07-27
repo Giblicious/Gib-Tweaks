@@ -1,9 +1,9 @@
 {
   "id": "gib-tweaks",
   "name": "Gib Tweaks",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "minAppVersion": "1.0.0",
-  "description": "Companion plugin for the Claudish theme with typography and workspace controls.",
+  "description": "Companion plugin for Gib Theme with typography and workspace controls.",
   "author": "Giblicious",
   "isDesktopOnly": true
 }

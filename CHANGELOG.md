@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Updates the companion theme name and repository references from Claudish to Gib Theme.
+- Updates the settings description to use the new theme name.
+
 ## 0.2.0
 
 - Renames the plugin and public project from Claudish Tweaks to Gib Tweaks.
