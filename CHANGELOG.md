@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1
+
+- Isolates right-sidebar status styling from Gib Theme's main-workspace status rule.
+- Raises the sidebar footer above Gib Theme's decorative sidebar shadow layer.
+- Defines complete footer spacing, alignment, borders, and overflow behavior without relying on theme load order.
+
 ## 0.4.0
 
 - Adds a live status-bar location setting with main-workspace and right-sidebar footer options.

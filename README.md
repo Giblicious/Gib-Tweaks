@@ -9,6 +9,7 @@ Gib Tweaks is a desktop companion plugin for Gib Theme. It provides typography o
 - Load a selected Obsidian workspace at startup.
 - Optionally close sidebar panels that Obsidian restores during startup.
 - Keep the status bar aligned with the central workspace when sidebars change size, or place it in a footer at the bottom of the right sidebar.
+- Coordinate status-bar placement with Gib Theme so its main-workspace rules do not leak into the right-sidebar footer.
 
 Empty typography fields inherit from the active theme or Obsidian defaults. The plugin is designed for [Gib Theme](https://github.com/Giblicious/Gib-Theme) but does not install the theme itself.
 

@@ -1,5 +1,7 @@
 /* Right-sidebar status footer, aligned with Obsidian's left vault/profile footer. */
 .gib-tweaks-status-bar-host {
+  position: relative;
+  z-index: 101;
   box-sizing: border-box;
   flex: 0 0 auto;
   width: 100%;
@@ -9,7 +11,7 @@
   background: var(--background-secondary);
 }
 
-.gib-tweaks-status-bar-host .status-bar {
+body:not(.is-mobile) .gib-tweaks-status-bar-host .status-bar {
   position: static !important;
   inset: auto !important;
   display: flex !important;
@@ -18,9 +20,16 @@
   min-width: 0;
   max-width: 100%;
   border: 0;
+  border-radius: 0;
   background: transparent;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 43px;
+  padding: var(--size-4-3) var(--size-4-2);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.gib-tweaks-status-bar-host .status-bar-item {
+body:not(.is-mobile) .gib-tweaks-status-bar-host .status-bar-item {
   min-width: 0;
 }

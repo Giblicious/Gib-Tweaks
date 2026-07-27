@@ -48,8 +48,10 @@ for (const requiredText of [
 const styles = read('styles.css');
 for (const requiredStyle of [
   '.gib-tweaks-status-bar-host',
-  '.gib-tweaks-status-bar-host .status-bar',
+  'body:not(.is-mobile) .gib-tweaks-status-bar-host .status-bar',
   'position: static !important',
+  'z-index: 101',
+  'min-height: 43px',
 ]) {
   if (!styles.includes(requiredStyle)) throw new Error(`Release styles are missing right-sidebar behavior: ${requiredStyle}`);
 }
