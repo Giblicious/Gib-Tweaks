@@ -1,0 +1,9 @@
+{
+  "id": "claudish-tweaks",
+  "name": "Claudish Tweaks",
+  "version": "0.1.0",
+  "minAppVersion": "1.0.0",
+  "description": "Companion plugin for the Claudish theme with typography and workspace controls.",
+  "author": "Giblicious",
+  "isDesktopOnly": true
+}

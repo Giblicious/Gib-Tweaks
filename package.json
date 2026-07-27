@@ -1,0 +1,13 @@
+{
+  "name": "claudish-tweaks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "npm run build && node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  }
+}
