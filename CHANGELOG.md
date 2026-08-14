@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+- Makes the relocated status bar a true full-width child footer of the right sidebar.
+- Matches the footer's live height to Obsidian's left vault and settings footer.
+- Overrides Obsidian's zero-height horizontal split rule and follows sidebar layout changes.
+
 ## 0.4.1
 
 - Isolates right-sidebar status styling from Gib Theme's main-workspace status rule.

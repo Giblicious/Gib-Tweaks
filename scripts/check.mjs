@@ -47,11 +47,12 @@ for (const requiredText of [
 
 const styles = read('styles.css');
 for (const requiredStyle of [
-  '.gib-tweaks-status-bar-host',
-  'body:not(.is-mobile) .gib-tweaks-status-bar-host .status-bar',
+  '.workspace-split.mod-right-split.gib-tweaks-has-status-bar-footer > .gib-tweaks-status-bar-host',
+  'body:not(.is-mobile) .gib-tweaks-status-bar-host > .status-bar',
   'position: static !important',
   'z-index: 101',
-  'min-height: 43px',
+  'height: var(--gib-tweaks-sidebar-footer-height, 43px) !important',
+  'flex: 0 0 var(--gib-tweaks-sidebar-footer-height, 43px) !important',
 ]) {
   if (!styles.includes(requiredStyle)) throw new Error(`Release styles are missing right-sidebar behavior: ${requiredStyle}`);
 }

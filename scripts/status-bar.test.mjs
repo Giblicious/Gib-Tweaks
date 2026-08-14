@@ -25,6 +25,8 @@ class FakeStyle {
   get width() { return this.values.get('width') || ''; }
   set paddingBottom(value) { this.values.set('padding-bottom', value); }
   get paddingBottom() { return this.values.get('padding-bottom') || ''; }
+  setProperty(name, value) { this.values.set(name, value); }
+  getPropertyValue(name) { return this.values.get(name) || ''; }
   removeProperty(name) { this.values.delete(name); }
 }
 
@@ -92,6 +94,7 @@ test('moves the status bar to the right footer and restores native placement on 
   const appContainer = new FakeElement('app-container');
   const workspace = new FakeElement('workspace');
   const mainRoot = new FakeElement('main-root', { left: 120, width: 800, height: 600 });
+  const leftFooter = new FakeElement('left-footer', { left: 0, width: 240, height: 47 });
   const rightSplit = new FakeElement('right-split');
   const statusBar = new FakeElement('status-bar', { left: 0, width: 800, height: 43 });
   const trailingSibling = new FakeElement('trailing-sibling');
@@ -102,6 +105,7 @@ test('moves the status bar to the right footer and restores native placement on 
     ['.app-container', appContainer],
     ['.workspace', workspace],
     ['.workspace-split.mod-root', mainRoot],
+    ['.workspace-split.mod-left-split .workspace-sidedock-vault-profile', leftFooter],
     ['.workspace-split.mod-right-split', rightSplit],
     ['.status-bar', statusBar],
   ]);
@@ -132,7 +136,14 @@ test('moves the status bar to the right footer and restores native placement on 
   assert.equal(host.parentNode, rightSplit);
   assert.equal(host.classList.contains('workspace-sidedock-vault-profile'), true);
   assert.equal(host.classList.contains('gib-tweaks-status-bar-host'), true);
+  assert.equal(rightSplit.classList.contains('gib-tweaks-has-status-bar-footer'), true);
+  assert.equal(host.style.getPropertyValue('--gib-tweaks-sidebar-footer-height'), '47px');
+  assert.equal(rightSplit.style.getPropertyValue('--gib-tweaks-sidebar-footer-height'), '47px');
   assert.equal(statusBar.classList.contains('gib-tweaks-status-bar-in-sidebar'), true);
+
+  leftFooter.rect.height = 52;
+  tweak.update();
+  assert.equal(host.style.getPropertyValue('--gib-tweaks-sidebar-footer-height'), '52px');
 
   tweak.setLocation('main');
   assert.equal(statusBar.parentNode, appContainer);
@@ -140,6 +151,8 @@ test('moves the status bar to the right footer and restores native placement on 
   assert.equal(statusBar.style.left, '120px');
   assert.equal(statusBar.style.width, '800px');
   assert.equal(mainRoot.style.paddingBottom, '43px');
+  assert.equal(rightSplit.classList.contains('gib-tweaks-has-status-bar-footer'), false);
+  assert.equal(rightSplit.style.getPropertyValue('--gib-tweaks-sidebar-footer-height'), '');
 
   tweak.setLocation('right');
   tweak.disable();
@@ -150,4 +163,5 @@ test('moves the status bar to the right footer and restores native placement on 
   assert.equal(statusBar.style.width, '');
   assert.equal(mainRoot.style.paddingBottom, '');
   assert.equal(rightSplit.children.length, 0);
+  assert.equal(rightSplit.classList.contains('gib-tweaks-has-status-bar-footer'), false);
 });

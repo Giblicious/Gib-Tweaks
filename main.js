@@ -105,6 +105,7 @@ var StatusBarTweak = class {
     this.resizeObserver = null;
     this.rafId = null;
     this.host = null;
+    this.hostSplit = null;
   }
   enable() {
     this.statusBar = document.querySelector(".status-bar");
@@ -123,6 +124,10 @@ var StatusBarTweak = class {
     this.resizeObserver = new ResizeObserver(() => this.scheduleUpdate());
     const modRoot = document.querySelector(".workspace-split.mod-root");
     if (modRoot) this.resizeObserver.observe(modRoot);
+    const leftFooter = document.querySelector(
+      ".workspace-split.mod-left-split .workspace-sidedock-vault-profile"
+    );
+    if (leftFooter) this.resizeObserver.observe(leftFooter);
     this.boundUpdate = () => this.scheduleUpdate();
     window.addEventListener("resize", this.boundUpdate);
   }
@@ -167,10 +172,26 @@ var StatusBarTweak = class {
     const rightSplit = document.querySelector(".workspace-split.mod-right-split");
     if (!rightSplit) return false;
     if (!this.host || this.host.parentNode !== rightSplit) {
+      this.clearSidebarHost();
       this.host?.remove();
       this.host = document.createElement("div");
       this.host.className = "workspace-sidedock-vault-profile gib-tweaks-status-bar-host";
       rightSplit.appendChild(this.host);
+    }
+    this.hostSplit = rightSplit;
+    rightSplit.classList.add("gib-tweaks-has-status-bar-footer");
+    const leftFooter = document.querySelector(
+      ".workspace-split.mod-left-split .workspace-sidedock-vault-profile"
+    );
+    if (leftFooter) this.resizeObserver?.observe(leftFooter);
+    const leftFooterHeight = Math.round(leftFooter?.getBoundingClientRect().height || 0);
+    if (leftFooterHeight > 0) {
+      const height = `${leftFooterHeight}px`;
+      rightSplit.style.setProperty("--gib-tweaks-sidebar-footer-height", height);
+      this.host.style.setProperty("--gib-tweaks-sidebar-footer-height", height);
+    } else {
+      rightSplit.style.removeProperty("--gib-tweaks-sidebar-footer-height");
+      this.host.style.removeProperty("--gib-tweaks-sidebar-footer-height");
     }
     if (this.statusBar.parentNode !== this.host) this.host.appendChild(this.statusBar);
     this.statusBar.classList.add("gib-tweaks-status-bar-in-sidebar");
@@ -193,7 +214,14 @@ var StatusBarTweak = class {
     if (this.statusBar.parentNode !== this.host) {
       this.host?.remove();
       this.host = null;
+      this.clearSidebarHost();
     }
+  }
+  clearSidebarHost() {
+    if (!this.hostSplit) return;
+    this.hostSplit.classList.remove("gib-tweaks-has-status-bar-footer");
+    this.hostSplit.style.removeProperty("--gib-tweaks-sidebar-footer-height");
+    this.hostSplit = null;
   }
   placeBelowMainWorkspace() {
     const modRoot = document.querySelector(".workspace-split.mod-root");
