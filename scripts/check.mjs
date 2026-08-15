@@ -38,7 +38,7 @@ for (const requiredText of [
   'Hide sidebar panels on startup',
   'Status bar location',
   'Right sidebar footer',
-  'gib-tweaks-status-bar-host',
+  'statusBarLocation: "right"',
   'restoreStatusBar',
   'module.exports',
 ]) {
@@ -47,9 +47,9 @@ for (const requiredText of [
 
 const styles = read('styles.css');
 for (const requiredStyle of [
-  '.workspace-split.mod-right-split.gib-tweaks-has-status-bar-footer > .gib-tweaks-status-bar-host',
-  'body:not(.is-mobile) .gib-tweaks-status-bar-host > .status-bar',
-  'position: static !important',
+  '.workspace-split.mod-right-split.gib-tweaks-has-status-bar-footer > .status-bar.gib-tweaks-status-bar-in-sidebar',
+  'position: relative !important',
+  'inset: auto !important',
   'z-index: 101',
   'height: var(--gib-tweaks-sidebar-footer-height, 43px) !important',
   'flex: 0 0 var(--gib-tweaks-sidebar-footer-height, 43px) !important',

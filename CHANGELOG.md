@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.3
+
+- Makes the native status bar itself a direct, full-width footer child of the right sidebar.
+- Removes the nested wrapper that could leave the native bar visually floating over the workspace.
+- Defaults newly enabled installations to the right-sidebar footer location.
+
 ## 0.4.2
 
 - Makes the relocated status bar a true full-width child footer of the right sidebar.
