@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.4
+
+- Embeds the status footer inside the bottom-most right sidebar panel instead of below it as a split-level sibling.
+- Makes the panel content and footer share the same `.workspace-tabs` flex column and width.
+- Covers stacked right-sidebar panels by selecting the lowest panel as the footer owner.
+
 ## 0.4.3
 
 - Makes the native status bar itself a direct, full-width footer child of the right sidebar.

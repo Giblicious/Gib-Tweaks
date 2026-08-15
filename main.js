@@ -105,6 +105,7 @@ var StatusBarTweak = class {
     this.resizeObserver = null;
     this.rafId = null;
     this.hostSplit = null;
+    this.hostPanel = null;
   }
   enable() {
     this.statusBar = document.querySelector(".status-bar");
@@ -170,11 +171,18 @@ var StatusBarTweak = class {
   placeInRightSidebar() {
     const rightSplit = document.querySelector(".workspace-split.mod-right-split");
     if (!rightSplit) return false;
-    if (this.hostSplit && this.hostSplit !== rightSplit) {
+    const rightPanels = Array.from(rightSplit.children).filter(
+      (child) => child.classList.contains("workspace-tabs")
+    );
+    const rightPanel = rightPanels[rightPanels.length - 1];
+    if (!rightPanel) return false;
+    if (this.hostPanel && this.hostPanel !== rightPanel) {
       this.clearSidebarHost();
     }
     this.hostSplit = rightSplit;
+    this.hostPanel = rightPanel;
     rightSplit.classList.add("gib-tweaks-has-status-bar-footer");
+    rightPanel.classList.add("gib-tweaks-status-bar-panel");
     const leftFooter = document.querySelector(
       ".workspace-split.mod-left-split .workspace-sidedock-vault-profile"
     );
@@ -186,7 +194,7 @@ var StatusBarTweak = class {
     } else {
       rightSplit.style.removeProperty("--gib-tweaks-sidebar-footer-height");
     }
-    if (this.statusBar.parentNode !== rightSplit) rightSplit.appendChild(this.statusBar);
+    if (this.statusBar.parentNode !== rightPanel) rightPanel.appendChild(this.statusBar);
     this.statusBar.classList.add(
       "workspace-sidedock-vault-profile",
       "gib-tweaks-status-bar-in-sidebar"
@@ -198,7 +206,7 @@ var StatusBarTweak = class {
   }
   restoreStatusBar() {
     if (!this.statusBar) return;
-    if (this.statusBar.parentNode === this.hostSplit) {
+    if (this.statusBar.parentNode === this.hostPanel) {
       const targetParent = this.originalParent?.isConnected ? this.originalParent : document.querySelector(".app-container");
       const reference = this.originalNextSibling?.parentNode === targetParent ? this.originalNextSibling : null;
       if (targetParent) {
@@ -213,9 +221,10 @@ var StatusBarTweak = class {
     this.clearSidebarHost();
   }
   clearSidebarHost() {
-    if (!this.hostSplit) return;
-    this.hostSplit.classList.remove("gib-tweaks-has-status-bar-footer");
-    this.hostSplit.style.removeProperty("--gib-tweaks-sidebar-footer-height");
+    this.hostPanel?.classList.remove("gib-tweaks-status-bar-panel");
+    this.hostSplit?.classList.remove("gib-tweaks-has-status-bar-footer");
+    this.hostSplit?.style.removeProperty("--gib-tweaks-sidebar-footer-height");
+    this.hostPanel = null;
     this.hostSplit = null;
   }
   placeBelowMainWorkspace() {

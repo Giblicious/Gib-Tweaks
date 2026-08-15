@@ -1,5 +1,5 @@
-/* The native status bar itself becomes a direct right-sidebar footer. */
-body:not(.is-mobile) .workspace-split.mod-right-split.gib-tweaks-has-status-bar-footer > .status-bar.gib-tweaks-status-bar-in-sidebar {
+/* The native status bar becomes a footer inside the bottom-most right panel. */
+body:not(.is-mobile) .workspace-split.mod-right-split .workspace-tabs.gib-tweaks-status-bar-panel > .status-bar.gib-tweaks-status-bar-in-sidebar {
   position: relative !important;
   inset: auto !important;
   z-index: 101;

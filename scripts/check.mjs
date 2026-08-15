@@ -47,7 +47,7 @@ for (const requiredText of [
 
 const styles = read('styles.css');
 for (const requiredStyle of [
-  '.workspace-split.mod-right-split.gib-tweaks-has-status-bar-footer > .status-bar.gib-tweaks-status-bar-in-sidebar',
+  '.workspace-split.mod-right-split .workspace-tabs.gib-tweaks-status-bar-panel > .status-bar.gib-tweaks-status-bar-in-sidebar',
   'position: relative !important',
   'inset: auto !important',
   'z-index: 101',
