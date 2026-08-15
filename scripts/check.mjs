@@ -51,6 +51,8 @@ for (const requiredStyle of [
   'position: relative !important',
   'inset: auto !important',
   'z-index: 101',
+  'justify-content: flex-end',
+  'border-inline-start: var(--divider-width) solid var(--divider-color)',
   'height: var(--gib-tweaks-sidebar-footer-height, 43px) !important',
   'flex: 0 0 var(--gib-tweaks-sidebar-footer-height, 43px) !important',
 ]) {

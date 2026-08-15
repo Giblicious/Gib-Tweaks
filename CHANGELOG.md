@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.5
+
+- Adds the right sidebar's matching inline-start divider to the embedded status footer.
+- Right-aligns all status items within the full-width footer.
+
 ## 0.4.4
 
 - Embeds the status footer inside the bottom-most right sidebar panel instead of below it as a split-level sibling.
